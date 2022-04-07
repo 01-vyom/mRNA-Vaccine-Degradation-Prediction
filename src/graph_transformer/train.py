@@ -11,6 +11,7 @@ gc.enable()
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 
+# Code for training the auto encoder
 def train_auto_encoder(
     X_node,
     X_node_pub,
@@ -25,8 +26,11 @@ def train_auto_encoder(
 ):
     base = get_base(X_node, adjacency_matrix)
     ae_model = get_ae_model(base, X_node, adjacency_matrix)
+
+    # Iterate epoch //epochs_each times over the three data
     for i in range(epochs // epochs_each):
         print(f"------ {i} ------")
+        # Using the training dataset
         ae_model.fit(
             [X_node, adjacency_matrix],
             [X_node[:, 0]],
@@ -35,6 +39,7 @@ def train_auto_encoder(
         )
         gc.collect()
         print("--- public ---")
+        # using the public dataset
         ae_model.fit(
             [X_node_pub, adjacency_matrix_pub],
             [X_node_pub[:, 0]],
@@ -42,6 +47,7 @@ def train_auto_encoder(
             batch_size=batch_size,
         )
         print("--- private ---")
+        # Use the private dataset
         ae_model.fit(
             [X_node_pri, adjacency_matrix_pri],
             [X_node_pri[:, 0]],
@@ -53,7 +59,21 @@ def train_auto_encoder(
 
     base.save_weights(save_path)
 
-
+'''
+# Train the GCN model, takes as input the 
+# @X_node: It is the train node features,
+# @adjacency_matrix: It is the edge feature in adjacency matrix form
+# @seq_len_target: It is the sequence length of the input data
+# @epochs: The number of epochs to run the training
+# @batch_size: The batch size to be used for the training
+# @model_path: The path where the trained model is to be saved.
+# @ae_model_path: Specifies the location of the ae pretrained model. 
+#                  If null doesnt use any pre trained model.
+# @plt_name: Name of the plot
+# @n_fold: The number of folds to use for training
+# @validation_frequency: Frequency in epochs after which the validation is to be run
+# @y: The ground truth target
+'''
 def train_gcn(
     X_node,
     adjacency_matrix,
@@ -172,6 +192,7 @@ def __main__():
     epochs_list = [30, 10, 3, 3, 5, 5]
     batch_size_list = [8, 16, 32, 64, 128, 256]
 
+    # Train model without auto encoder
     epochs = epochs_list[0]
     batch_size = batch_size_list[1]
 
@@ -187,6 +208,7 @@ def __main__():
         y=y,
     )
 
+    # Train model with auto encoder
     ae_epochs = 30  # epoch of training of denoising auto encoder
     ae_epochs_each = 10  # epoch of training of denoising auto encoder each time.
     ae_batch_size = 32

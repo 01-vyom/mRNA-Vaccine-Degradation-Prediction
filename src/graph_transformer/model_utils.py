@@ -3,7 +3,7 @@ import tensorflow as tf
 from tensorflow.keras import layers as L
 from tensorflow.keras import backend as K
 
-
+# Allocate the gpu memory for training
 def allocate_gpu_memory(gpu_number=0):
     physical_devices = tf.config.experimental.list_physical_devices("GPU")
 
@@ -19,8 +19,8 @@ def allocate_gpu_memory(gpu_number=0):
         print("Not enough GPU hardware devices available")
 
 
+## calculate mcrmse score by using numpy
 def mcrmse(t, p, seq_len_target):
-    ## calculate mcrmse score by using numpy
     t = t[:, :seq_len_target]
     p = p[:, :seq_len_target]
 
@@ -28,6 +28,7 @@ def mcrmse(t, p, seq_len_target):
     return score
 
 
+# Build the attention layers for the model
 def attention(x_inner, x_outer, n_factor, dropout):
     x_Q = L.Conv1D(
         n_factor,
@@ -57,6 +58,8 @@ def attention(x_inner, x_outer, n_factor, dropout):
     return att
 
 
+# Use the attention layer function to create the multi head attention
+# n_head specifies the number of head, if 1 it is equivalent to single attention
 def multi_head_attention(x, y, n_factor, n_head, dropout):
     if n_head == 1:
         att = attention(x, y, n_factor, dropout)
@@ -93,6 +96,7 @@ def forward(x, unit, kernel=3, rate=0.1):
     return h
 
 
+# Build the adjacency attention layers
 def adj_attn(x, adj, unit, n=2, rate=0.1):
     x_a = x
     x_as = []
@@ -108,6 +112,8 @@ def adj_attn(x, adj, unit, n=2, rate=0.1):
     return x_a
 
 
+# Build the base of the model using 1d convolutions 
+# and the multihead attention layers
 def get_base(X_node, adj_matrix):
     ## base model architecture
     ## node, adj -> middle feature
@@ -144,6 +150,7 @@ def get_base(X_node, adj_matrix):
     return model
 
 
+# Use the base and build the autoencoder on top of it.
 def get_ae_model(base, X_node, adj_matrix):
     ## denoising auto encoder part
     ## node, adj -> middle feature -> node
@@ -171,6 +178,8 @@ def MCRMSE(y_true, y_pred):
     return tf.reduce_mean(tf.sqrt(colwise_mse), axis=1)
 
 
+# Build the model with densely connected layers on top of the base model
+# Compile and specify the optimizer
 def get_model(base, X_node, adj_matrix, seq_len_target):
     ## regression part
     ## node, adj -> middle feature -> prediction of targets

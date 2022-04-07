@@ -13,7 +13,17 @@ columns = [
     "deg_50C",
 ]
 
-
+'''
+ X_node: The node features to be used for prediction
+ X_node_pub: The node features part of the public dataset
+ X_node_pri: The node features part of the private dataset
+ adjacency_matrix_pub: The adjacency_matrix features part of the public dataset
+ adjacency_matrix_pri: he adjacency_matrix features part of the private dataset
+ seq_len_target: The sequence length of the target
+ targets: The targets on which the model was trained. Used to create the submission file 
+ model_path: path where the model weights are saves
+ sub_file: Path where the submission file is to be created
+'''
 def predict(
     X_node,
     X_node_pub,
