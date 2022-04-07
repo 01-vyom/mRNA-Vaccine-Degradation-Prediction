@@ -37,12 +37,9 @@ def predict(test, type=0, FOLD_N=5):
 
 def __main__():
     test_data = "./test.json"
-    aug_data = "./data/augmented_data.csv"
     test = pd.read_json(test_data, lines=True)
     debug = False
     FOLD_N = 10
-    aug_df = pd.read_csv(aug_data)
-    test = augmentation(test, aug_df)
 
     test_df, test_preds = [], []
     if debug:

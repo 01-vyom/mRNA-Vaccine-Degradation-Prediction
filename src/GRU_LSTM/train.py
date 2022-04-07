@@ -99,6 +99,7 @@ def __main__():
     aug_data = "./data/augmented_data.csv"
     train_data = "./train.json"
     debug = False
+    FOLD_N = 10
     train = pd.read_json(train_data, lines=True)
     aug_df = pd.read_csv(aug_data)
     train["bpps_sum"] = read_bpps_sum(train)
@@ -113,7 +114,7 @@ def __main__():
 
     train["cluster_id"] = kmeans_model.labels_
     train = augmentation(train, aug_df)
-    val_df, val_preds, model_losses = run(train, 5, 10, debug)
+    val_df, val_preds, model_losses = run(train, 5, FOLD_N, debug)
 
     for x in model_losses:
         print(*x, sep=" ")

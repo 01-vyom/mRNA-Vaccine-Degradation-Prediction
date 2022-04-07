@@ -132,7 +132,8 @@ def __main__():
     denoise = True  # if True, use train data whose signal_to_noise > 1
     allocate_gpu_memory()
     path = "."
-    aug_data = "./peerj-cs-07-597-s003.csv"
+    aug_data = "./data/augmented_data.csv"
+    n_fold = 7
     aug_df = pd.read_csv(aug_data)
     train = pd.read_json(f"{path}/train.json", lines=True)
     train = augmentation(train, aug_df)
@@ -176,7 +177,14 @@ def __main__():
 
     model_path = "./model_without_ae.h5"
     train_gcn(
-        X_node, adjacency_matrix, seq_len_target, epochs, batch_size, model_path, y=y
+        X_node,
+        adjacency_matrix,
+        seq_len_target,
+        epochs,
+        batch_size,
+        model_path,
+        n_fold=n_fold,
+        y=y,
     )
 
     ae_epochs = 30  # epoch of training of denoising auto encoder
@@ -211,6 +219,7 @@ def __main__():
         batch_size,
         model_path,
         ae_model_path=ae_path,
+        n_fold=n_fold,
         y=y,
     )
 
