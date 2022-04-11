@@ -1,5 +1,7 @@
 # Improving COVID-19 mRNA vaccine degradation prediction
 
+### [[Paper]](https://github.com/01-vyom/mRNA-Vaccine-Degradation-Prediction/blob/main/Improving_COVID_19_mRNA_Vaccine_Degradation_Prediction.pdf) |  [[Slides]](https://docs.google.com/presentation/d/1K-1k-UBP9XW0yqNx9woy-bCVn8hh0v3txNBQt4tv7HQ/edit?usp=sharing)
+
 [Vyom Pathak](https://www.linkedin.com/in/01-vyom/)<sup>1</sup> | [Rahul Roy](https://www.linkedin.com/in/rahul-roy-5a7980128/)<sup>1</sup>
 
 <sup>1</sup>[Computer & Information Science & Engineering, University of Florida, Gainesville, Florida, USA](https://www.cise.ufl.edu/)
