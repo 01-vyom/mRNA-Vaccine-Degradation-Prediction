@@ -4,7 +4,7 @@
 
 [Vyom Pathak](https://www.linkedin.com/in/01-vyom/)<sup>1</sup> | [Rahul Roy](https://www.linkedin.com/in/rahul-roy-5a7980128/)<sup>1</sup>
 
-<sup>1</sup>[Computer & Information Science & Engineering, University of Florida, Gainesville, Florida, USA](https://www.cise.ufl.edu/)
+[Computer & Information Science & Engineering, University of Florida, Gainesville, Florida, USA](https://www.cise.ufl.edu/)<sup>1</sup>
 
 The COVID-19 pandemic has shown devastating effects on a global scale for the past 2 years. An effective vaccine that can be distributed easily is very important to stop the COVID-19 pandemic. While mRNA vaccines are the fastest candidates, they tend to be unstable due to the spontaneous degradation of RNA molecules even with a single cut. In this paper, we develop modeling techniques to predict the rules of degradation of mRNA molecules in the COVID-19 vaccine using Deep learning techniques like Hybrid GRU-LSTM Networks, Graph Convolutional networks, and autoencoders. We state the improvement over mRNA Vaccine Degradation prediction by comparing both these methods for their MCRMSE loss values. We take the RNA structure along with their loop type as input and predict five values to understand the degradation criteria at each point in an RNA molecule using the Eterna Dataset consisting of 3029 mRNA sequences. We also used an augmented dataset generated using the ARNIE package to improve the previously described deep learning techniques. We show an overall improvement of 0.007 while using Graph Transformers as compared to the Hybrid GRU-LSTM models.
 ## Setup
